@@ -347,10 +347,12 @@
 
     if (need_update_error_counters || need_debug_reporting) {
       #if AXIS_IS_TMC(X)
-        if (monitor_tmc_driver(stepperX, need_update_error_counters, need_debug_reporting)) {
-          #if AXIS_IS_TMC(X2)
-            step_current_down(stepperX2);
-          #endif
+        if (extDigitalRead(X_INDEX_PIN)) {
+          if (monitor_tmc_driver(stepperX, need_update_error_counters, need_debug_reporting)) {
+            #if AXIS_IS_TMC(X2)
+              step_current_down(stepperX2);
+            #endif
+          }
         }
       #endif
       #if AXIS_IS_TMC(X2)
@@ -361,10 +363,12 @@
         }
       #endif
       #if AXIS_IS_TMC(Y)
-        if (monitor_tmc_driver(stepperY, need_update_error_counters, need_debug_reporting)) {
-          #if AXIS_IS_TMC(Y2)
-            step_current_down(stepperY2);
-          #endif
+        if (extDigitalRead(Y_INDEX_PIN)) {
+          if (monitor_tmc_driver(stepperY, need_update_error_counters, need_debug_reporting)) {
+            #if AXIS_IS_TMC(Y2)
+              step_current_down(stepperY2);
+            #endif
+          }
         }
       #endif
       #if AXIS_IS_TMC(Y2)
@@ -375,13 +379,15 @@
         }
       #endif
       #if AXIS_IS_TMC(Z)
-        if (monitor_tmc_driver(stepperZ, need_update_error_counters, need_debug_reporting)) {
-          #if AXIS_IS_TMC(Z2)
-            step_current_down(stepperZ2);
-          #endif
-          #if AXIS_IS_TMC(Z3)
-            step_current_down(stepperZ3);
-          #endif
+        if (extDigitalRead(Z_INDEX_PIN)) {
+          if (monitor_tmc_driver(stepperZ, need_update_error_counters, need_debug_reporting)) {
+            #if AXIS_IS_TMC(Z2)
+              step_current_down(stepperZ2);
+            #endif
+            #if AXIS_IS_TMC(Z3)
+              step_current_down(stepperZ3);
+            #endif
+          }
         }
       #endif
       #if AXIS_IS_TMC(Z2)
@@ -405,7 +411,9 @@
         }
       #endif
       #if AXIS_IS_TMC(E0)
-        (void)monitor_tmc_driver(stepperE0, need_update_error_counters, need_debug_reporting);
+        if (extDigitalRead(E0_INDEX_PIN)) {
+          (void)monitor_tmc_driver(stepperE0, need_update_error_counters, need_debug_reporting);
+        }
       #endif
       #if AXIS_IS_TMC(E1)
         (void)monitor_tmc_driver(stepperE1, need_update_error_counters, need_debug_reporting);

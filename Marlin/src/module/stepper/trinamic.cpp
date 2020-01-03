@@ -384,6 +384,16 @@ enum StealthIndex : uint8_t { STEALTH_AXIS_XY, STEALTH_AXIS_Z, STEALTH_AXIS_E };
         stepperE5.beginSerial(TMC_BAUD_RATE);
       #endif
     #endif
+
+    // TMC lazy monitoring
+    SET_INPUT(X_INDEX_PIN);
+    SET_INPUT(Y_INDEX_PIN);
+    SET_INPUT(Z_INDEX_PIN);
+    SET_INPUT(E0_INDEX_PIN);
+    extDigitalWrite(X_INDEX_PIN, LOW);
+    extDigitalWrite(Y_INDEX_PIN, LOW);
+    extDigitalWrite(Z_INDEX_PIN, LOW);
+    extDigitalWrite(E0_INDEX_PIN, LOW);
   }
 #endif
 

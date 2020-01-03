@@ -1998,6 +1998,14 @@
   //#define E5_CS_PIN         -1
 
   /**
+   * Use TMC220x INDEX pin for overtemperature pre-warning
+   */
+  #define X_INDEX_PIN         43
+  #define Y_INDEX_PIN         6
+  #define Z_INDEX_PIN         58
+  #define E0_INDEX_PIN        4         
+
+  /**
    * Software option for SPI driven drivers (TMC2130, TMC2160, TMC2660, TMC5130 and TMC5160).
    * The default SW SPI pins are defined the respective pins files,
    * but you can override or define them here.
@@ -2174,7 +2182,12 @@
    *   stepperY.intpol(0); \
    * }
    */
-  #define TMC_ADV() {  }
+  #define TMC_ADV() { \
+    stepperX.index_otpw(1); \
+    stepperY.index_otpw(1); \
+    stepperZ.index_otpw(1); \
+    stepperE0.index_otpw(1); \
+  }
 
 #endif // HAS_TRINAMIC
 
